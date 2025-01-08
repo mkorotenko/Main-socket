@@ -4,10 +4,10 @@ const wss = new WebSocket.Server({ port: 8080 });
 wss.binaryType = "arraybuffer";
 
 wss.on('connection', (ws) => {
-  console.log('New connection established');
+  console.log('New peer connection established');
 
   ws.on('message', (message) => {
-    console.log('Received:', message);
+    console.log('Peer message:', message);
 
     // Розсилаємо повідомлення всім підключеним клієнтам, виключаючи відправника
     wss.clients.forEach((client) => {
@@ -18,11 +18,13 @@ wss.on('connection', (ws) => {
   });
 
   ws.on('close', () => {
-    console.log('Connection closed');
+    console.log('Peer connection closed');
+    ws.send('Peer connection closed');
   });
 
   ws.on('error', (error) => {
-    console.error('WebSocket error:', error);
+    console.error('Peer WebSocket error:', error);
+    ws.send('Peer WebSocket error:', error);
   });
 
   ws.send('Connection established');
