@@ -1,17 +1,19 @@
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 8080 });
-wss.binaryType = "arraybuffer";
+const wsServer = new WebSocket.Server({ port: 8080 });
+wsServer.binaryType = "arraybuffer";
 
-wss.on('connection', (ws) => {
-  console.log('New peer connection established');
+wsServer.on('connection', (ws) => {
+  console.log('Peer connection established');
   ws.binaryType = "arraybuffer";
 
   ws.on('message', (message) => {
+    // const decoder = new TextDecoder('utf-8');
+    // decoder.decode(new Uint8Array(m))
     console.log('Peer message:', message);
 
     // Розсилаємо повідомлення всім підключеним клієнтам, виключаючи відправника
-    wss.clients.forEach((client) => {
+    wsServer.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
         client.send(message);
       }
@@ -21,6 +23,11 @@ wss.on('connection', (ws) => {
   ws.on('close', () => {
     console.log('Peer connection closed');
     ws.send('Peer connection closed');
+    wsServer.clients.forEach((client) => {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send('Some peer closed');
+      }
+    });
   });
 
   ws.on('error', (error) => {
@@ -28,7 +35,12 @@ wss.on('connection', (ws) => {
     ws.send('Peer WebSocket error:', error);
   });
 
-  ws.send('Connection established');
+  // ws.send('Connection established');
+  wsServer.clients.forEach((client) => {
+    if (client !== ws && client.readyState === WebSocket.OPEN) {
+      client.send('New peer connected');
+    }
+  });
 });
 
 console.log('WebSocket server is running on ws://localhost:8080');
