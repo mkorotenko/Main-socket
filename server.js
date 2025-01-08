@@ -5,13 +5,13 @@ const wss = new WebSocket.Server({ port: 8080 });
 wss.on('connection', (ws) => {
   console.log('New connection established');
 
-  ws.on('message', (message) => {
+  ws.on('message', (message, isBinary) => {
     console.log('Received:', message);
 
     // Розсилаємо повідомлення всім підключеним клієнтам, виключаючи відправника
     wss.clients.forEach((client) => {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
+        client.send(message, { binary: isBinary });
       }
     });
   });
