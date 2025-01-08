@@ -5,6 +5,7 @@ wss.binaryType = "arraybuffer";
 
 wss.on('connection', (ws) => {
   console.log('New peer connection established');
+  ws.binaryType = "arraybuffer";
 
   ws.on('message', (message) => {
     console.log('Peer message:', message);
