@@ -2,7 +2,7 @@ import { execa } from 'execa';
 import path from 'path';
 
 // Вкажіть шлях до вашого проекту
-const projectPath = path.resolve(__dirname, '/home/Main-socket');
+const projectPath = '/home/Main-socket';//path.resolve(__dirname, '/home/Main-socket');
 
 // Функція для виконання команд
 async function runCommand(command, args) {
