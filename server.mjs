@@ -1,5 +1,5 @@
 import { WebSocket } from 'ws';
-import { updateManager } from './update-manager.mjs';
+import updateManager from './update-manager.mjs';
 
 const port = 8080;
 
