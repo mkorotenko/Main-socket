@@ -3,7 +3,7 @@ import updateManager from './update-manager.mjs';
 
 const port = 8080;
 
-const wsServer = new WebSocket.Server({ port });
+const wsServer = new WebSocket('', port);
 wsServer.binaryType = "arraybuffer";
 
 const decoder = new TextDecoder('utf-8');
