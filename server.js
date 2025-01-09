@@ -7,6 +7,11 @@ wsServer.on('connection', (ws) => {
   console.log('Peer connection established');
   ws.binaryType = "arraybuffer";
 
+  ws.on('open', () => {
+    console.log('Peer connection opened');
+    ws.send('Peer connection opened');
+  });
+
   ws.on('message', (message) => {
     // const decoder = new TextDecoder('utf-8');
     // decoder.decode(new Uint8Array(m))
