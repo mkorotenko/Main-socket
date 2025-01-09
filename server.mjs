@@ -18,6 +18,15 @@ function tryDecode(data) {
   }
 }
 
+function tryParseJSON(str) {
+  try {
+    return JSON.parse(str);
+  } catch (error) {
+    console.error('Error parsing JSON:', error, ' DATA:', str);
+    return null;
+  }
+}
+
 wsServer.on('connection', (ws) => {
   console.log('Peer connection established');
   ws.binaryType = "arraybuffer";
@@ -36,8 +45,9 @@ wsServer.on('connection', (ws) => {
     const data = tryDecode(message);
     if (data) {
       console.log('Peer data:', data);
-      if (data.call) {
-        switch (data.call) {
+      if (data.includes('call')) {
+        const req = tryParseJSON(data);
+        switch (req?.call) {
             case 'update':
                 console.log('Update call');
                 updateManager();
