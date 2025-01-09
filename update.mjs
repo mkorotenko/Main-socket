@@ -1,8 +1,7 @@
 import { execa } from 'execa';
-import path from 'path';
 
 // Вкажіть шлях до вашого проекту
-const projectPath = '/home/Main-socket';//path.resolve(__dirname, '/home/Main-socket');
+const projectPath = '/home/Main-socket';
 
 // Функція для виконання команд
 async function runCommand(command, args) {
@@ -18,6 +17,9 @@ async function runCommand(command, args) {
 (async () => {
   await runCommand('git', ['pull', 'origin', 'main']);
   console.log('Files updated from GitHub');
+
+  await runCommand('npm', ['install']);
+  console.log('Updated npm packages');
   
   // Перезапуск 
   await runCommand('sudo', ['systemctl', 'daemon-reload']);
