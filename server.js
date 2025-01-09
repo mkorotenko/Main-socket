@@ -3,6 +3,18 @@ const WebSocket = require('ws');
 const wsServer = new WebSocket.Server({ port: 8080 });
 wsServer.binaryType = "arraybuffer";
 
+const decoder = new TextDecoder('utf-8');
+
+function tryDecode(data) {
+  try {
+    // return JSON.parse(data);
+    return decoder.decode(new Uint8Array(data));
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    return undefined;
+  }
+}
+
 wsServer.on('connection', (ws) => {
   console.log('Peer connection established');
   ws.binaryType = "arraybuffer";
@@ -18,7 +30,12 @@ wsServer.on('connection', (ws) => {
   ws.on('message', (message) => {
     // const decoder = new TextDecoder('utf-8');
     // decoder.decode(new Uint8Array(m))
-    console.log('Peer message:', message);
+    const data = tryDecode(message);
+    if (data) {
+      console.log('Peer data:', data);
+    } else {
+      console.log('Peer message:', message);
+    }
 
     // Розсилаємо повідомлення всім підключеним клієнтам, виключаючи відправника
     wsServer.clients.forEach((client) => {
