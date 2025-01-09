@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "execa": "^9.5.2",
     "ws": "^8.18.0"
   }
 }
