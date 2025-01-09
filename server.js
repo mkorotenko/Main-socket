@@ -9,7 +9,9 @@ wsServer.on('connection', (ws) => {
 
   ws.on('open', () => {
     console.log('Peer connection opened');
-    ws.send('Peer connection opened');
+    setTimeout(() => {
+      ws.send('Peer connection opened');
+    }, 1000);
   });
 
   ws.on('message', (message) => {
