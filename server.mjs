@@ -35,7 +35,7 @@ wsServer.on('connection', (ws) => {
   //   console.log('Peer connection opened');
     setTimeout(() => {
       console.log('Sending peer connection opened');
-      ws.send('Peer connection opened');
+      ws.send('New connection opened');
     });
   // });
 
