@@ -14,7 +14,7 @@ async function runCommand(command, args) {
 }
 
 // Отримання останніх змін з віддаленого репозиторію
-export default (async function update() {
+export default async function update() {
   await runCommand('git', ['pull', 'origin', 'main']);
   console.log('Files updated from GitHub');
 
@@ -28,6 +28,6 @@ export default (async function update() {
   // Перезапуск сервісу
   console.log('Service restarting...');
   runCommand('sudo', ['systemctl', 'restart', 'main-socket.service']);
-});
+};
 
 update();
