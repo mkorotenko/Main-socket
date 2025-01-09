@@ -50,6 +50,7 @@ wsServer.on('connection', (ws) => {
         switch (req?.call) {
             case 'update':
                 console.log('Update call');
+                ws.send('Updating service...');
                 updateManager();
                 break;
         }
