@@ -68,6 +68,11 @@ wsServer.on('connection', (ws) => {
     });
   });
 
+  ws.on('ping', () => {
+    console.log('Received ping from client');
+    ws.pong(); // Відправка pong-відповіді
+  });
+
   ws.on('close', () => {
     console.log('Peer connection closed');
     ws.send('Peer connection closed');
