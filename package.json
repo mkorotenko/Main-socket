@@ -12,6 +12,11 @@
   "description": "",
   "dependencies": {
     "execa": "^9.5.2",
+    "express": "^4.21.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
     "ws": "^8.18.0"
   }
 }
