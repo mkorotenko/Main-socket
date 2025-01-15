@@ -12,7 +12,7 @@ const httpPort = 8000;
 const app = express();
 
 // Створення потоку запису для логів
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+const accessLogStream = fs.createWriteStream(path.join('access.log'), { flags: 'a' });
 // Використання morgan для логування HTTP-запитів у файл
 app.use(morgan('combined', { stream: accessLogStream }));
 // Створення HTTP-сервера
