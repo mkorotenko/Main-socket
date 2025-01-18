@@ -109,7 +109,7 @@ wsServer.on('connection', (ws) => {
 
 console.log(`WebSocket server is running on port ${port}`);
 
-const distDir = "/home/Main-socket/browser";//path.join(__dirname, 'dist/your-app-name');
+const distDir = "browser";//path.join(__dirname, 'dist/your-app-name');
 
 const app = express();
 
