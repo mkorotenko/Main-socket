@@ -2,17 +2,21 @@ import { WebSocketServer } from 'ws';
 import updateManager from './update-manager.mjs';
 import express from 'express';
 import http from 'http';
-// import morgan from 'morgan';
+import morgan from 'morgan';
 import fs from 'fs';
 import path from 'path';
 
 const port = 8080;
-const httpPort = 7999;
+const httpPort = 8000;
+
+const app = express();
 
 // Створення потоку запису для логів
-// const accessLogStream = fs.createWriteStream(path.join('access.log'), { flags: 'a' });
+const accessLogStream = fs.createWriteStream(path.join('access.log'), { flags: 'a' });
 // Використання morgan для логування HTTP-запитів у файл
-// app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan('combined', { stream: accessLogStream }));
+// Створення HTTP-сервера
+const server = http.createServer(app);
 
 const wsServer = new WebSocketServer({ port });
 wsServer.binaryType = "arraybuffer";
@@ -108,21 +112,6 @@ wsServer.on('connection', (ws) => {
 });
 
 console.log(`WebSocket server is running on port ${port}`);
-
-const distDir = "browser";//path.join(__dirname, 'dist/your-app-name');
-
-const app = express();
-
-// Налаштування статичних файлів
-app.use(express.static(distDir));
-
-// Відправка index.html для всіх запитів
-app.get('*', (req, res) => {
-  res.sendFile(path.join(distDir, 'index.html'));
-});
-
-// Створення HTTP-сервера
-const server = http.createServer(app);
 
 // Запуск HTTP-сервера
 server.listen(httpPort, () => {
