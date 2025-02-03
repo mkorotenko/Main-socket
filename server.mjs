@@ -125,13 +125,13 @@ app.get('*', (req, res) => {
 });
 
 app.use(express.json());
-app.get('/api/data', (req, res) => {
+app.get('/api/data', async (req, res) => {
   // res.send('Data');
   if (!dataConn) {
     res.status(500).send('Data connector is not initialized');
     return;
   }
-  res.send(dataConn.getTowerLocations([]));
+  res.json(await dataConn.getTowerLocations([]));
 });
 
 // Створення HTTP-сервера
