@@ -3,9 +3,9 @@ import updateManager from './update-manager.mjs';
 import express from 'express';
 import http from 'http';
 // import morgan from 'morgan';
-import fs from 'fs';
+// import fs from 'fs';
 import path from 'path';
-import { dbTEST } from './data/index.mjs';
+import { DataConnector } from './data/index.mjs';
 
 const port = 8080;
 const httpPort = 7999;
@@ -19,6 +19,8 @@ const wsServer = new WebSocketServer({ port });
 wsServer.binaryType = "arraybuffer";
 
 const decoder = new TextDecoder('utf-8');
+
+let dataConn;
 
 function tryDecode(data) {
   try {
@@ -122,6 +124,15 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(distDir, 'index.html'));
 });
 
+app.get('/data', (req, res) => {
+  // res.send('Data');
+  if (!dataConn) {
+    res.status(500).send('Data connector is not initialized');
+    return;
+  }
+  res.send(dataConn.getTowerLocations([]));
+});
+
 // Створення HTTP-сервера
 const server = http.createServer(app);
 
@@ -130,4 +141,5 @@ server.listen(httpPort, () => {
   console.log(`Server is listening on port ${httpPort}`);
 });
 
-dbTEST();
+// dbTEST();
+dataConn = new DataConnector();
