@@ -116,14 +116,6 @@ const distDir = "/home/Main-socket/browser";//path.join(__dirname, 'dist/your-ap
 
 const app = express();
 
-// Налаштування статичних файлів
-app.use(express.static(distDir));
-
-// Відправка index.html для всіх запитів
-app.get('*', (req, res) => {
-  res.sendFile(path.join(distDir, 'index.html'));
-});
-
 app.use(express.json());
 app.get('/api/data', async (req, res) => {
   // res.send('Data');
