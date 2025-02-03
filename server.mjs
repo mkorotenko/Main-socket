@@ -126,6 +126,13 @@ app.get('/api/data', async (req, res) => {
   res.json(await dataConn.getTowerLocations([]));
 });
 
+// Налаштування статичних файлів
+app.use(express.static(distDir));
+// Відправка index.html для всіх запитів
+app.get('/ui/*', (req, res) => {
+  res.sendFile(path.join(distDir, 'index.html'));
+});
+
 // Створення HTTP-сервера
 const server = http.createServer(app);
 
