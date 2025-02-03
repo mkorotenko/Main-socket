@@ -65,7 +65,27 @@ export class DataConnector {
         return result;
     }
 
+    async __collectionPush(collectionName, data) {
+        // let result = [];
+        // try {
+            const db = await this.__connectDB();
+            const collection = db.collection(collectionName);
+
+            return await collection.insertMany(data);
+        // } catch (error) {
+            // console.error('Error:', error);
+        // } finally {
+            // await client.close();
+        // }
+
+        // return result;
+    }
+
     async getTowerLocations(towers) {
         return await this.__collectionRequest(locationsName, towers);
+    }
+
+    async setTowerLocations(towerLocations) {
+        return await this.__collectionPush(locationsName, towerLocations);
     }
 }

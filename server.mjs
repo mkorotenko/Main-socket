@@ -117,7 +117,7 @@ const distDir = "/home/Main-socket/browser";//path.join(__dirname, 'dist/your-ap
 const app = express();
 
 app.use(express.json());
-app.get('/api/data', async (req, res) => {
+app.get('/api/locations', async (req, res) => {
   if (!dataConn) {
     res.status(500).send('Data connector is not initialized');
     return;
@@ -127,6 +127,19 @@ app.get('/api/data', async (req, res) => {
     res.json(data);
   } catch (error) {
     res.status(500).send('Error getting data:', error.message);
+  }
+});
+
+app.post('/api/locations', async (req, res) => {
+  if (!dataConn) {
+    res.status(500).send('Data connector is not initialized');
+    return;
+  }
+  try {
+    const data = await dataConn.setTowerLocations(req.body);
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error setting data:', error.message);
   }
 });
 
