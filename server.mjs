@@ -124,7 +124,8 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(distDir, 'index.html'));
 });
 
-app.get('/data', (req, res) => {
+app.use(express.json());
+app.get('/api/data', (req, res) => {
   // res.send('Data');
   if (!dataConn) {
     res.status(500).send('Data connector is not initialized');
