@@ -82,7 +82,7 @@ export class DataConnector {
         return await this.__collectionPush(locationsName, towerLocations);
     }
 
-    async delTowerLocations(towerLocations) {
+    async delTowerLocations(towerLocation) {
         return await this.__collectionDel(locationsName, towerLocation);
     }
 }
