@@ -5,6 +5,7 @@ import http from 'http';
 // import morgan from 'morgan';
 import fs from 'fs';
 import path from 'path';
+import { dbTEST } from 'data/index.mjs';
 
 const port = 8080;
 const httpPort = 7999;
@@ -128,3 +129,5 @@ const server = http.createServer(app);
 server.listen(httpPort, () => {
   console.log(`Server is listening on port ${httpPort}`);
 });
+
+dbTEST();
