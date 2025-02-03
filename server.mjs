@@ -124,7 +124,7 @@ app.get('/api/data', async (req, res) => {
     return;
   }
   try {
-    const data = await dataConn.getTowerLocations([]);
+    const data = await dataConn.getTowerLocations({});
     res.json(data);
   } catch (error) {
     res.status(500).send('Error getting data:', error.message);
