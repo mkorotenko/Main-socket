@@ -135,7 +135,7 @@ app.get('/api/data', async (req, res) => {
 // Налаштування статичних файлів
 app.use(express.static(distDir));
 // Відправка index.html для всіх запитів
-app.get('/ui/*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(distDir, 'index.html'));
 });
 
