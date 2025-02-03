@@ -123,7 +123,13 @@ app.get('/api/data', async (req, res) => {
     res.status(500).send('Data connector is not initialized');
     return;
   }
-  res.json(await dataConn.getTowerLocations([]));
+  try {
+    const data = await dataConn.getTowerLocations([]);
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error getting data:', error.message);
+  }
+  // res.json(await dataConn.getTowerLocations([]));
 });
 
 // Налаштування статичних файлів
