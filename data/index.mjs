@@ -57,7 +57,7 @@ export class DataConnector {
 
             result = await collection.find(selection).toArray();
         // } catch (error) {
-            console.error('Error:', error);
+            // console.error('Error:', error);
         // } finally {
             // await client.close();
         // }
