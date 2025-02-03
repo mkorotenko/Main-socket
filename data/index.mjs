@@ -51,16 +51,16 @@ export class DataConnector {
 
     async __collectionRequest(collectionName, selection = {}) {
         let result = [];
-        try {
+        // try {
             const db = await this.__connectDB();
             const collection = db.collection(collectionName);
 
             result = await collection.find(selection).toArray();
-        } catch (error) {
+        // } catch (error) {
             console.error('Error:', error);
-        } finally {
-            await client.close();
-        }
+        // } finally {
+            // await client.close();
+        // }
 
         return result;
     }
