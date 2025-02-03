@@ -4,8 +4,9 @@ const url = 'mongodb://localhost:27017';
 const dbName = 'default';
 
 export async function dbTEST() {
+    let client;
     try {
-        const client = new MongoClient(url);
+        client = new MongoClient(url);
         await client.connect();
         console.log('Connected successfully to server');
         const db = client.db(dbName);
