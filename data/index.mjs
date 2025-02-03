@@ -51,34 +51,27 @@ export class DataConnector {
 
     async __collectionRequest(collectionName, selection = {}) {
         let result = [];
-        // try {
-            const db = await this.__connectDB();
-            const collection = db.collection(collectionName);
 
-            result = await collection.find(selection).toArray();
-        // } catch (error) {
-            // console.error('Error:', error);
-        // } finally {
-            // await client.close();
-        // }
+        const db = await this.__connectDB();
+        const collection = db.collection(collectionName);
+
+        result = await collection.find(selection).toArray();
 
         return result;
     }
 
     async __collectionPush(collectionName, data) {
-        // let result = [];
-        // try {
-            const db = await this.__connectDB();
-            const collection = db.collection(collectionName);
+        const db = await this.__connectDB();
+        const collection = db.collection(collectionName);
 
-            return await collection.insertMany(data);
-        // } catch (error) {
-            // console.error('Error:', error);
-        // } finally {
-            // await client.close();
-        // }
+        return await collection.insertMany(data);
+    }
 
-        // return result;
+    async __collectionDel(collectionName, selection) {
+        const db = await this.__connectDB();
+        const collection = db.collection(collectionName);
+
+        return await collection.deleteOne(selection);
     }
 
     async getTowerLocations(towers) {
@@ -87,5 +80,9 @@ export class DataConnector {
 
     async setTowerLocations(towerLocations) {
         return await this.__collectionPush(locationsName, towerLocations);
+    }
+
+    async delTowerLocations(towerLocations) {
+        return await this.__collectionDel(locationsName, towerLocation);
     }
 }

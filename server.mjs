@@ -143,6 +143,19 @@ app.post('/api/locations', async (req, res) => {
   }
 });
 
+app.delete('/api/locations', async (req, res) => {
+  if (!dataConn) {
+    res.status(500).send('Data connector is not initialized');
+    return;
+  }
+  try {
+    const data = await dataConn.delTowerLocations(req.body);
+    res.json(data);
+  } catch (error) {
+    res.status(500).send('Error deleting data:', error.message);
+  }
+});
+
 // Налаштування статичних файлів
 app.use(express.static(distDir));
 // Відправка index.html для всіх запитів
