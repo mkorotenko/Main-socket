@@ -118,18 +118,16 @@ const app = express();
 
 app.use(express.json());
 app.get('/api/data', async (req, res) => {
-  // res.send('Data');
   if (!dataConn) {
     res.status(500).send('Data connector is not initialized');
     return;
   }
   try {
-    const data = await dataConn.getTowerLocations({});
+    const data = await dataConn.getTowerLocations(req.body);
     res.json(data);
   } catch (error) {
     res.status(500).send('Error getting data:', error.message);
   }
-  // res.json(await dataConn.getTowerLocations([]));
 });
 
 // Налаштування статичних файлів
