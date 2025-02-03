@@ -5,7 +5,7 @@ import http from 'http';
 // import morgan from 'morgan';
 import fs from 'fs';
 import path from 'path';
-import { dbTEST } from 'data/index.mjs';
+import { dbTEST } from './data/index.mjs';
 
 const port = 8080;
 const httpPort = 7999;
